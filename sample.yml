@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: edgegateway
+  cloud:
+    config:
+      uri: http://localhost:8888
+      
+management.security.enabled: false
+
+server.undertow.worker-threads: 100
+
+
+hystrix:
+ command:
+   productservice:
+    execution:
+     isolation:
+      thread:
+       timeoutInMilliseconds: 5000
+hystrix.threadpool.default.coreSize: 100
+hystrix.threadpool.default.maximumSize: 100
+     
+ribbon:
+  ConnectTimeout: 2000
+  ReadTimeout: 2000
+  PoolMaxThreads: 100
+  MaxTotalConnections: 500
+  MaxConnectionsPerHost: 500
+      
+---
+spring:
+  profiles: docker
+  cloud:
+    config:
+      uri: http://configserver:8888   
+      
+      
+      
+server:
+  port: 8888
+spring:
+  application:
+    name: config-server  
+  profiles:
+    active: native
+  cloud:
+     config:
+       server:
+           native:
+              searchLocations:  classpath:configs/      

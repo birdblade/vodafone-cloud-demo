@@ -1,0 +1,27 @@
+sc-config-server:
+    image: springcloudstack_sc-config-server:v1
+    hostname: "configserver"
+    ports:
+     - "8888:8888"
+     
+     
+     
+sc-eureka-server:
+    image: springcloudstack_sc-eureka-server:v1
+    hostname: "eurekaserver"
+    ports:
+     - "8761:8761"  
+     
+
+     
+sc-service:
+    image: springcloudstack_sc-service:v1
+    hostname: "service_1"
+    links:
+        - "sc-config-server:configserver"
+        - "sc-eureka-server:eurekaserver"
+    ports:
+        - "8083:8083"   
+    environment:
+        CONFIGSERVER_HOST:   "configserver"
+        CONFIGSERVER_PORT:   "8888"  
