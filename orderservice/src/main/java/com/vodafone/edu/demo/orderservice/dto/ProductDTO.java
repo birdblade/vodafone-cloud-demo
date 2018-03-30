@@ -1,4 +1,4 @@
-package com.vodafone.edu.demo.productservice.dto;
+package com.vodafone.edu.demo.orderservice.dto;
 
 import java.io.Serializable;
 
